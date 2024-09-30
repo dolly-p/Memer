@@ -26,7 +26,6 @@ const Meme = () =>{
         setRandomMeme(data[randNum]);
     }
     const handleClick = async()=>{
-        console.log(data[randNum].id);
         const params = {
             template_id: `${data[randNum].id}`,
             username: username.toString(),
@@ -34,9 +33,8 @@ const Meme = () =>{
             text0: firstText,
             text1: secondText
         }
-        console.log(qs.stringify(params));
         
-        const createMeme = await axios.post("http://localhost:3000/api/caption_image", qs.stringify(params),{
+        const createMeme = await axios.post("https://memer-36gg.onrender.com/api/caption_image", qs.stringify(params),{
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
