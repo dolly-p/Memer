@@ -14,6 +14,7 @@ const Meme = () =>{
     const [secondText, setSecondText] = useState("");
     const [randomMeme, setRandomMeme] = useState([]);
     const [imgPath, setImgPath] = useState(""); 
+    const [isClicked, setIsClicked] = useState(false);
 
     const handleFirstInput = (e) =>{
         setFirstText(e.target.value)
@@ -24,6 +25,7 @@ const Meme = () =>{
     const handleSubmit =()=>{
         randNum = Math.floor(Math.random() * data.length)
         setRandomMeme(data[randNum]);
+        setIsClicked(true);
     }
     const handleClick = async()=>{
         const params = {
@@ -43,6 +45,7 @@ const Meme = () =>{
         
         const img = createMeme.data.data.url;
         setImgPath(img);
+        setIsClicked(false);
     }
 
     useEffect(()=>{
@@ -73,8 +76,8 @@ const Meme = () =>{
 
                     {/* <img src="https://i.imgflip.com/952i4j.jpg" alt="" /> */}
                     <MemeBox>
-                        <img src={randomMeme.url} alt="" />
-                        <img src={imgPath} alt="" />
+                        {isClicked? <img src={randomMeme.url} alt="" /> : <img src={imgPath} alt="" /> }
+                        
                     </MemeBox>
             </section>
         </Container>
@@ -92,6 +95,10 @@ const Container = styled.div`
     h1{
         font-size: 3rem;
     }
+    @media (max-width: 760px) {
+        width: 90%;
+    }
+
 `
 const Form = styled.div`
     width: 100%;
@@ -131,6 +138,11 @@ const MemeBox = styled.div`
         border-radius: 5px;
         max-width: 400px;
         max-height: 800px;
+    }
+    @media (max-width: 768px) {
+        img{
+            width: 100%;
+        }
     }
 `
 export default Meme;
